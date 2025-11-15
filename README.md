@@ -43,32 +43,6 @@ flutter pub get
 3️⃣ Run the project
 flutter run
 
-
-🗺`️ GoRouter Setup Example
-final GoRouter router = GoRouter(
-routes: [
-GoRoute(
-path: '/',
-name: 'login',
-builder: (context, state) => const Login(),
-),
-GoRoute(
-path: '/dashboard',
-name: 'dashboard',
-builder: (context, state) => const Dashboard(),
-routes: [
-GoRoute(
-path: 'profile/:name',
-name: 'profile',
-builder: (context, state) =>
-Profile(name: state.pathParameters['name'] ?? ''),
-),
-],
-),
-],
-);`
-
-
 🛠️ Tech Stack
 TechnologyPurposeFlutterUI frameworkDartProgramming languageGoRouterAdvanced navigationMaterial 3Modern UI
 
