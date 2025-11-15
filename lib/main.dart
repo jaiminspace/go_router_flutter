@@ -26,16 +26,24 @@ var isLoggedIn = false;
 final router = GoRouter(
   initialLocation: "/",
   redirect: (context, state) {
-    // If logged in AND trying to go to login screen, send to dashboard
-    if (isLoggedIn && state.uri.toString() == "/") {
+
+    //DEEP LINK COMMAND TO CHECK:
+    //adb shell am start -a android.intent.action.VIEW -d "myapp://app/dashboard/profile/jaimin"
+    final rawPath = state.uri.path;
+    final path = rawPath.startsWith("/") ? rawPath : "/$rawPath";
+    if (path.startsWith("/dashboard/profile/")) {
+      return null;
+    }
+
+    //If logged in, redirect to dashboard from login page
+    if (isLoggedIn && path == "/") {
       return "/dashboard";
     }
 
-    // If NOT logged in AND trying to go anywhere else, send to login
-    if (!isLoggedIn && state.uri.toString() != "/") {
+    //If not logged in, redirect to login page from other pages
+    if (!isLoggedIn && path != "/") {
       return "/";
     }
-
     // Otherwise allow navigation
     return null;
   },
@@ -56,7 +64,7 @@ final router = GoRouter(
           builder: (context, state) => Profile(
             name: state.pathParameters["name"]!,
             address:
-            state.uri.queryParameters["address"] ?? "No Address Provided",
+                state.uri.queryParameters["address"] ?? "No Address Provided",
           ),
         ),
       ],
