@@ -44,7 +44,7 @@ final router = GoRouter(
     if (!isLoggedIn && path != "/") {
       return "/";
     }
-
+    // Otherwise allow navigation
     return null;
   },
   routes: [
